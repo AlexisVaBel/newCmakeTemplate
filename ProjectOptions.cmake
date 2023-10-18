@@ -4,7 +4,7 @@ include(CMakeDependentOption)
 include(CheckCXXCompilerFlag)
 
 
-macro(myproject_supports_sanitizers)
+macro(newCmakeTemplate_supports_sanitizers)
   if((CMAKE_CXX_COMPILER_ID MATCHES ".*Clang.*" OR CMAKE_CXX_COMPILER_ID MATCHES ".*GNU.*") AND NOT WIN32)
     set(SUPPORTS_UBSAN ON)
   else()
@@ -18,183 +18,183 @@ macro(myproject_supports_sanitizers)
   endif()
 endmacro()
 
-macro(myproject_setup_options)
-  option(myproject_ENABLE_HARDENING "Enable hardening" ON)
-  option(myproject_ENABLE_COVERAGE "Enable coverage reporting" OFF)
+macro(newCmakeTemplate_setup_options)
+  option(newCmakeTemplate_ENABLE_HARDENING "Enable hardening" ON)
+  option(newCmakeTemplate_ENABLE_COVERAGE "Enable coverage reporting" OFF)
   cmake_dependent_option(
-    myproject_ENABLE_GLOBAL_HARDENING
+    newCmakeTemplate_ENABLE_GLOBAL_HARDENING
     "Attempt to push hardening options to built dependencies"
     ON
-    myproject_ENABLE_HARDENING
+    newCmakeTemplate_ENABLE_HARDENING
     OFF)
 
-  myproject_supports_sanitizers()
+  newCmakeTemplate_supports_sanitizers()
 
-  if(NOT PROJECT_IS_TOP_LEVEL OR myproject_PACKAGING_MAINTAINER_MODE)
-    option(myproject_ENABLE_IPO "Enable IPO/LTO" OFF)
-    option(myproject_WARNINGS_AS_ERRORS "Treat Warnings As Errors" OFF)
-    option(myproject_ENABLE_USER_LINKER "Enable user-selected linker" OFF)
-    option(myproject_ENABLE_SANITIZER_ADDRESS "Enable address sanitizer" OFF)
-    option(myproject_ENABLE_SANITIZER_LEAK "Enable leak sanitizer" OFF)
-    option(myproject_ENABLE_SANITIZER_UNDEFINED "Enable undefined sanitizer" OFF)
-    option(myproject_ENABLE_SANITIZER_THREAD "Enable thread sanitizer" OFF)
-    option(myproject_ENABLE_SANITIZER_MEMORY "Enable memory sanitizer" OFF)
-    option(myproject_ENABLE_UNITY_BUILD "Enable unity builds" OFF)
-    option(myproject_ENABLE_CLANG_TIDY "Enable clang-tidy" OFF)
-    option(myproject_ENABLE_CPPCHECK "Enable cpp-check analysis" OFF)
-    option(myproject_ENABLE_PCH "Enable precompiled headers" OFF)
-    option(myproject_ENABLE_CACHE "Enable ccache" OFF)
+  if(NOT PROJECT_IS_TOP_LEVEL OR newCmakeTemplate_PACKAGING_MAINTAINER_MODE)
+    option(newCmakeTemplate_ENABLE_IPO "Enable IPO/LTO" OFF)
+    option(newCmakeTemplate_WARNINGS_AS_ERRORS "Treat Warnings As Errors" OFF)
+    option(newCmakeTemplate_ENABLE_USER_LINKER "Enable user-selected linker" OFF)
+    option(newCmakeTemplate_ENABLE_SANITIZER_ADDRESS "Enable address sanitizer" OFF)
+    option(newCmakeTemplate_ENABLE_SANITIZER_LEAK "Enable leak sanitizer" OFF)
+    option(newCmakeTemplate_ENABLE_SANITIZER_UNDEFINED "Enable undefined sanitizer" OFF)
+    option(newCmakeTemplate_ENABLE_SANITIZER_THREAD "Enable thread sanitizer" OFF)
+    option(newCmakeTemplate_ENABLE_SANITIZER_MEMORY "Enable memory sanitizer" OFF)
+    option(newCmakeTemplate_ENABLE_UNITY_BUILD "Enable unity builds" OFF)
+    option(newCmakeTemplate_ENABLE_CLANG_TIDY "Enable clang-tidy" OFF)
+    option(newCmakeTemplate_ENABLE_CPPCHECK "Enable cpp-check analysis" OFF)
+    option(newCmakeTemplate_ENABLE_PCH "Enable precompiled headers" OFF)
+    option(newCmakeTemplate_ENABLE_CACHE "Enable ccache" OFF)
   else()
-    option(myproject_ENABLE_IPO "Enable IPO/LTO" ON)
-    option(myproject_WARNINGS_AS_ERRORS "Treat Warnings As Errors" ON)
-    option(myproject_ENABLE_USER_LINKER "Enable user-selected linker" OFF)
-    option(myproject_ENABLE_SANITIZER_ADDRESS "Enable address sanitizer" ${SUPPORTS_ASAN})
-    option(myproject_ENABLE_SANITIZER_LEAK "Enable leak sanitizer" OFF)
-    option(myproject_ENABLE_SANITIZER_UNDEFINED "Enable undefined sanitizer" ${SUPPORTS_UBSAN})
-    option(myproject_ENABLE_SANITIZER_THREAD "Enable thread sanitizer" OFF)
-    option(myproject_ENABLE_SANITIZER_MEMORY "Enable memory sanitizer" OFF)
-    option(myproject_ENABLE_UNITY_BUILD "Enable unity builds" OFF)
-    option(myproject_ENABLE_CLANG_TIDY "Enable clang-tidy" ON)
-    option(myproject_ENABLE_CPPCHECK "Enable cpp-check analysis" ON)
-    option(myproject_ENABLE_PCH "Enable precompiled headers" OFF)
-    option(myproject_ENABLE_CACHE "Enable ccache" ON)
+    option(newCmakeTemplate_ENABLE_IPO "Enable IPO/LTO" ON)
+    option(newCmakeTemplate_WARNINGS_AS_ERRORS "Treat Warnings As Errors" ON)
+    option(newCmakeTemplate_ENABLE_USER_LINKER "Enable user-selected linker" OFF)
+    option(newCmakeTemplate_ENABLE_SANITIZER_ADDRESS "Enable address sanitizer" ${SUPPORTS_ASAN})
+    option(newCmakeTemplate_ENABLE_SANITIZER_LEAK "Enable leak sanitizer" OFF)
+    option(newCmakeTemplate_ENABLE_SANITIZER_UNDEFINED "Enable undefined sanitizer" ${SUPPORTS_UBSAN})
+    option(newCmakeTemplate_ENABLE_SANITIZER_THREAD "Enable thread sanitizer" OFF)
+    option(newCmakeTemplate_ENABLE_SANITIZER_MEMORY "Enable memory sanitizer" OFF)
+    option(newCmakeTemplate_ENABLE_UNITY_BUILD "Enable unity builds" OFF)
+    option(newCmakeTemplate_ENABLE_CLANG_TIDY "Enable clang-tidy" ON)
+    option(newCmakeTemplate_ENABLE_CPPCHECK "Enable cpp-check analysis" ON)
+    option(newCmakeTemplate_ENABLE_PCH "Enable precompiled headers" OFF)
+    option(newCmakeTemplate_ENABLE_CACHE "Enable ccache" ON)
   endif()
 
   if(NOT PROJECT_IS_TOP_LEVEL)
     mark_as_advanced(
-      myproject_ENABLE_IPO
-      myproject_WARNINGS_AS_ERRORS
-      myproject_ENABLE_USER_LINKER
-      myproject_ENABLE_SANITIZER_ADDRESS
-      myproject_ENABLE_SANITIZER_LEAK
-      myproject_ENABLE_SANITIZER_UNDEFINED
-      myproject_ENABLE_SANITIZER_THREAD
-      myproject_ENABLE_SANITIZER_MEMORY
-      myproject_ENABLE_UNITY_BUILD
-      myproject_ENABLE_CLANG_TIDY
-      myproject_ENABLE_CPPCHECK
-      myproject_ENABLE_COVERAGE
-      myproject_ENABLE_PCH
-      myproject_ENABLE_CACHE)
+      newCmakeTemplate_ENABLE_IPO
+      newCmakeTemplate_WARNINGS_AS_ERRORS
+      newCmakeTemplate_ENABLE_USER_LINKER
+      newCmakeTemplate_ENABLE_SANITIZER_ADDRESS
+      newCmakeTemplate_ENABLE_SANITIZER_LEAK
+      newCmakeTemplate_ENABLE_SANITIZER_UNDEFINED
+      newCmakeTemplate_ENABLE_SANITIZER_THREAD
+      newCmakeTemplate_ENABLE_SANITIZER_MEMORY
+      newCmakeTemplate_ENABLE_UNITY_BUILD
+      newCmakeTemplate_ENABLE_CLANG_TIDY
+      newCmakeTemplate_ENABLE_CPPCHECK
+      newCmakeTemplate_ENABLE_COVERAGE
+      newCmakeTemplate_ENABLE_PCH
+      newCmakeTemplate_ENABLE_CACHE)
   endif()
 
-  myproject_check_libfuzzer_support(LIBFUZZER_SUPPORTED)
-  if(LIBFUZZER_SUPPORTED AND (myproject_ENABLE_SANITIZER_ADDRESS OR myproject_ENABLE_SANITIZER_THREAD OR myproject_ENABLE_SANITIZER_UNDEFINED))
+  newCmakeTemplate_check_libfuzzer_support(LIBFUZZER_SUPPORTED)
+  if(LIBFUZZER_SUPPORTED AND (newCmakeTemplate_ENABLE_SANITIZER_ADDRESS OR newCmakeTemplate_ENABLE_SANITIZER_THREAD OR newCmakeTemplate_ENABLE_SANITIZER_UNDEFINED))
     set(DEFAULT_FUZZER ON)
   else()
     set(DEFAULT_FUZZER OFF)
   endif()
 
-  option(myproject_BUILD_FUZZ_TESTS "Enable fuzz testing executable" ${DEFAULT_FUZZER})
+  option(newCmakeTemplate_BUILD_FUZZ_TESTS "Enable fuzz testing executable" ${DEFAULT_FUZZER})
 
 endmacro()
 
-macro(myproject_global_options)
-  if(myproject_ENABLE_IPO)
+macro(newCmakeTemplate_global_options)
+  if(newCmakeTemplate_ENABLE_IPO)
     include(cmake/InterproceduralOptimization.cmake)
-    myproject_enable_ipo()
+    newCmakeTemplate_enable_ipo()
   endif()
 
-  myproject_supports_sanitizers()
+  newCmakeTemplate_supports_sanitizers()
 
-  if(myproject_ENABLE_HARDENING AND myproject_ENABLE_GLOBAL_HARDENING)
+  if(newCmakeTemplate_ENABLE_HARDENING AND newCmakeTemplate_ENABLE_GLOBAL_HARDENING)
     include(cmake/Hardening.cmake)
     if(NOT SUPPORTS_UBSAN 
-       OR myproject_ENABLE_SANITIZER_UNDEFINED
-       OR myproject_ENABLE_SANITIZER_ADDRESS
-       OR myproject_ENABLE_SANITIZER_THREAD
-       OR myproject_ENABLE_SANITIZER_LEAK)
+       OR newCmakeTemplate_ENABLE_SANITIZER_UNDEFINED
+       OR newCmakeTemplate_ENABLE_SANITIZER_ADDRESS
+       OR newCmakeTemplate_ENABLE_SANITIZER_THREAD
+       OR newCmakeTemplate_ENABLE_SANITIZER_LEAK)
       set(ENABLE_UBSAN_MINIMAL_RUNTIME FALSE)
     else()
       set(ENABLE_UBSAN_MINIMAL_RUNTIME TRUE)
     endif()
-    message("${myproject_ENABLE_HARDENING} ${ENABLE_UBSAN_MINIMAL_RUNTIME} ${myproject_ENABLE_SANITIZER_UNDEFINED}")
-    myproject_enable_hardening(myproject_options ON ${ENABLE_UBSAN_MINIMAL_RUNTIME})
+    message("${newCmakeTemplate_ENABLE_HARDENING} ${ENABLE_UBSAN_MINIMAL_RUNTIME} ${newCmakeTemplate_ENABLE_SANITIZER_UNDEFINED}")
+    newCmakeTemplate_enable_hardening(newCmakeTemplate_options ON ${ENABLE_UBSAN_MINIMAL_RUNTIME})
   endif()
 endmacro()
 
-macro(myproject_local_options)
+macro(newCmakeTemplate_local_options)
   if(PROJECT_IS_TOP_LEVEL)
     include(cmake/StandardProjectSettings.cmake)
   endif()
 
-  add_library(myproject_warnings INTERFACE)
-  add_library(myproject_options INTERFACE)
+  add_library(newCmakeTemplate_warnings INTERFACE)
+  add_library(newCmakeTemplate_options INTERFACE)
 
   include(cmake/CompilerWarnings.cmake)
-  myproject_set_project_warnings(
-    myproject_warnings
-    ${myproject_WARNINGS_AS_ERRORS}
+  newCmakeTemplate_set_project_warnings(
+    newCmakeTemplate_warnings
+    ${newCmakeTemplate_WARNINGS_AS_ERRORS}
     ""
     ""
     ""
     "")
 
-  if(myproject_ENABLE_USER_LINKER)
+  if(newCmakeTemplate_ENABLE_USER_LINKER)
     include(cmake/Linker.cmake)
-    configure_linker(myproject_options)
+    configure_linker(newCmakeTemplate_options)
   endif()
 
   include(cmake/Sanitizers.cmake)
-  myproject_enable_sanitizers(
-    myproject_options
-    ${myproject_ENABLE_SANITIZER_ADDRESS}
-    ${myproject_ENABLE_SANITIZER_LEAK}
-    ${myproject_ENABLE_SANITIZER_UNDEFINED}
-    ${myproject_ENABLE_SANITIZER_THREAD}
-    ${myproject_ENABLE_SANITIZER_MEMORY})
+  newCmakeTemplate_enable_sanitizers(
+    newCmakeTemplate_options
+    ${newCmakeTemplate_ENABLE_SANITIZER_ADDRESS}
+    ${newCmakeTemplate_ENABLE_SANITIZER_LEAK}
+    ${newCmakeTemplate_ENABLE_SANITIZER_UNDEFINED}
+    ${newCmakeTemplate_ENABLE_SANITIZER_THREAD}
+    ${newCmakeTemplate_ENABLE_SANITIZER_MEMORY})
 
-  set_target_properties(myproject_options PROPERTIES UNITY_BUILD ${myproject_ENABLE_UNITY_BUILD})
+  set_target_properties(newCmakeTemplate_options PROPERTIES UNITY_BUILD ${newCmakeTemplate_ENABLE_UNITY_BUILD})
 
-  if(myproject_ENABLE_PCH)
+  if(newCmakeTemplate_ENABLE_PCH)
     target_precompile_headers(
-      myproject_options
+      newCmakeTemplate_options
       INTERFACE
       <vector>
       <string>
       <utility>)
   endif()
 
-  if(myproject_ENABLE_CACHE)
+  if(newCmakeTemplate_ENABLE_CACHE)
     include(cmake/Cache.cmake)
-    myproject_enable_cache()
+    newCmakeTemplate_enable_cache()
   endif()
 
   include(cmake/StaticAnalyzers.cmake)
-  if(myproject_ENABLE_CLANG_TIDY)
-    myproject_enable_clang_tidy(myproject_options ${myproject_WARNINGS_AS_ERRORS})
+  if(newCmakeTemplate_ENABLE_CLANG_TIDY)
+    newCmakeTemplate_enable_clang_tidy(newCmakeTemplate_options ${newCmakeTemplate_WARNINGS_AS_ERRORS})
   endif()
 
-  if(myproject_ENABLE_CPPCHECK)
-    myproject_enable_cppcheck(${myproject_WARNINGS_AS_ERRORS} "" # override cppcheck options
+  if(newCmakeTemplate_ENABLE_CPPCHECK)
+    newCmakeTemplate_enable_cppcheck(${newCmakeTemplate_WARNINGS_AS_ERRORS} "" # override cppcheck options
     )
   endif()
 
-  if(myproject_ENABLE_COVERAGE)
+  if(newCmakeTemplate_ENABLE_COVERAGE)
     include(cmake/Tests.cmake)
-    myproject_enable_coverage(myproject_options)
+    newCmakeTemplate_enable_coverage(newCmakeTemplate_options)
   endif()
 
-  if(myproject_WARNINGS_AS_ERRORS)
+  if(newCmakeTemplate_WARNINGS_AS_ERRORS)
     check_cxx_compiler_flag("-Wl,--fatal-warnings" LINKER_FATAL_WARNINGS)
     if(LINKER_FATAL_WARNINGS)
       # This is not working consistently, so disabling for now
-      # target_link_options(myproject_options INTERFACE -Wl,--fatal-warnings)
+      # target_link_options(newCmakeTemplate_options INTERFACE -Wl,--fatal-warnings)
     endif()
   endif()
 
-  if(myproject_ENABLE_HARDENING AND NOT myproject_ENABLE_GLOBAL_HARDENING)
+  if(newCmakeTemplate_ENABLE_HARDENING AND NOT newCmakeTemplate_ENABLE_GLOBAL_HARDENING)
     include(cmake/Hardening.cmake)
     if(NOT SUPPORTS_UBSAN 
-       OR myproject_ENABLE_SANITIZER_UNDEFINED
-       OR myproject_ENABLE_SANITIZER_ADDRESS
-       OR myproject_ENABLE_SANITIZER_THREAD
-       OR myproject_ENABLE_SANITIZER_LEAK)
+       OR newCmakeTemplate_ENABLE_SANITIZER_UNDEFINED
+       OR newCmakeTemplate_ENABLE_SANITIZER_ADDRESS
+       OR newCmakeTemplate_ENABLE_SANITIZER_THREAD
+       OR newCmakeTemplate_ENABLE_SANITIZER_LEAK)
       set(ENABLE_UBSAN_MINIMAL_RUNTIME FALSE)
     else()
       set(ENABLE_UBSAN_MINIMAL_RUNTIME TRUE)
     endif()
-    myproject_enable_hardening(myproject_options OFF ${ENABLE_UBSAN_MINIMAL_RUNTIME})
+    newCmakeTemplate_enable_hardening(newCmakeTemplate_options OFF ${ENABLE_UBSAN_MINIMAL_RUNTIME})
   endif()
 
 endmacro()
